@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //执行请求，获取服务器发送的相应对象。
                 HttpResponse response=httpClient.execute(httpGet);
                 //检查相应的状态是否正常。检查状态码的值是否等于200
-
                 if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
                 {
                     //从相应对象当中取出数据
