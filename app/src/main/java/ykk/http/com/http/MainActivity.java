@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //原则:在主线程当中不能访问网络。
         NetworkThread thread =new NetworkThread();
         thread.start();
 
@@ -51,13 +52,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         @Override
         public void run() {
+            //创建HttpClient
             HttpClient httpClient=new DefaultHttpClient();
+            //创建代表请求的对象，参数是访问的服务器地址。
+            //   http://www.baidu.com
             HttpGet httpGet=new HttpGet("http://www.marschen.com/data1.html");
             try {
+                //执行请求，获取服务器发送的相应对象。
                 HttpResponse response=httpClient.execute(httpGet);
+                //检查相应的状态是否正常。检查状态码的值是否等于200
                 int code= response.getStatusLine().getStatusCode();
                 if(code ==200)
                 {
+                    //从相应对象当中取出数据
                     HttpEntity entity=response.getEntity();
                     InputStream in=entity.getContent();
                     BufferedReader reader=new BufferedReader(new InputStreamReader(in));
