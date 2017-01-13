@@ -3,9 +3,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -58,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //创建代表请求的对象，参数是访问的服务器地址。
             //   http://www.baidu.com
             HttpGet httpGet=new HttpGet("http://www.marschen.com/data1.html");
+            //获取网址的请求头文件信息
+            Header[] reqHeader=httpGet.getAllHeaders();
+            for(int i=0;i<reqHeader.length;i++) {
+                String name = reqHeader[i].getName();
+                String value=reqHeader[i].getValue();
+                Log.d("MianActivity","request Header name"+name+" value "+value);
+            }
             try {
                 //执行请求，获取服务器发送的相应对象。
                 HttpResponse response=httpClient.execute(httpGet);
