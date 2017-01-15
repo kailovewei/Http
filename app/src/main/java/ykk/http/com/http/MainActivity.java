@@ -15,6 +15,8 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -76,9 +78,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     //从相应对象当中取出数据
                     HttpEntity entity=response.getEntity();
+                    //可用下面一行代码代替注释的代码，简化代码，直接从网络上请求一段字符串，转化为中文的形式。
+                    String data= EntityUtils.toString(entity,"utf-8");
+                    /*
                     InputStream in=entity.getContent();
                     BufferedReader reader=new BufferedReader(new InputStreamReader(in));
                     String data=reader.readLine();
+                    */
                     Message msg=handler.obtainMessage();
                     msg.obj=data;
                     handler.sendMessage(msg);
