@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HttpEntity entity=response.getEntity();
                     //可用下面一行代码代替注释的代码，简化代码，直接从网络上请求一段字符串，转化为中文的形式。
                     String data= EntityUtils.toString(entity,"utf-8");
+                    
                     /*
                     InputStream in=entity.getContent();
                     BufferedReader reader=new BufferedReader(new InputStreamReader(in));
