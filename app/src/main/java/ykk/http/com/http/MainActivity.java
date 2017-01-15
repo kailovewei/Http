@@ -21,12 +21,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button;
     private EditText editText;
     private Handler handler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         handler=new NetworkHandler();
     }
-
     @Override
     public void onClick(View v) {
         //原则:在主线程当中不能访问网络。
         NetworkThread thread =new NetworkThread();
         thread.start();
-
     }
     class NetworkHandler extends Handler
     {
@@ -50,10 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(Message msg) {
             String data=(String)msg.obj;
             editText.setText(data);
-
         }
     }
-
     class NetworkThread extends Thread
     {
         @Override
@@ -80,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HttpEntity entity=response.getEntity();
                     //可用下面一行代码代替注释的代码，简化代码，直接从网络上请求一段字符串，转化为中文的形式。
                     String data= EntityUtils.toString(entity,"utf-8");
-                    
                     /*
                     InputStream in=entity.getContent();
                     BufferedReader reader=new BufferedReader(new InputStreamReader(in));
@@ -93,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
